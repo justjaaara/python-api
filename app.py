@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, abort
 
-days = [
+dias = [
     {"id": 1, "name": "Lunes"},
     {"id": 2, "name": "Martes"},
     {"id": 3, "name": "Miércoles"},
@@ -15,12 +15,12 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def get_days():
-    return jsonify(days)
+    return jsonify(dias)
 
 
 @app.route("/<int:day_id>", methods=["GET"])
 def get_day(day_id):
-    day = [day for day in days if day["id"] == day_id]
+    day = [day for day in dias if day["id"] == day_id]
     if len(day) == 0:
         abort(404)
     return jsonify({"day": day[0]})
