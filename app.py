@@ -14,6 +14,7 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=["GET"])
+# Método para obtener los días
 def get_days():
     return jsonify(dias)
 
