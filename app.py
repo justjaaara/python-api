@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, abort
+from flask import Flask, jsonify, abort, request
 
 dias = [
     {"id": 1, "name": "Lunes"},
@@ -37,6 +37,17 @@ def get_day_by_name(day_name):
 @app.route("/", methods=["POST"])
 def post_days():
     return jsonify({"success": True}), 201
+
+@app.route("/new-day", methods=["POST"])
+def post_new_day():
+    data = request.get_json()
+    if not data or "name" not in data:
+        return jsonify({"error": "Falta el nombre del día"}), 400
+
+    new_id = dias[-1]['id'] + 1
+    new_day = {"id": new_id, "name": data["name"]}
+    dias.append(new_day)
+    return jsonify({"success": True, "day": new_day}), 201
 
 
 if __name__ == "__main__":
