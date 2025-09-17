@@ -26,6 +26,13 @@ def get_day(day_id):
         abort(404)
     return jsonify({"day": day[0]})
 
+@app.route("/<string:day_name>", methods=["GET"])
+def get_day_by_name(day_name):
+    day = [day for day in dias if day["name"] == day_name]
+    if len(day) == 0:
+        abort(404)
+    return jsonify({"day": day[0]})
+
 
 @app.route("/", methods=["POST"])
 def post_days():
